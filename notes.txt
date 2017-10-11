@@ -1,0 +1,153 @@
+BST is a data structure for maintaining dynamic sets. It can be used for priority queues, as an example. 
+
+We will define BST and give the basic ops. Then we'll compare it to heaps. 
+
+October 11, 2017, 5:18pm
+
+Each node x in tree (where x is the key) has an x.left, x.right for its children. X can store more satellite data. 
+
+Just as the max heap property has the parent be larger than children, here, the x.key is larger or equal to all the keys in its left subtree (x.left and all children) and smaller or equal to x.right and children. 
+
+
+Example [2,5,5,6,7,8]
+
+...6
+.5...7
+2.5...8
+
+or 
+
+2
+.5
+..7
+.6.8
+5
+
+Not necessarily close to being balanced. Value NIL if node does not exist. 
+
+Given a BST it is "easy" to print all elements in a sorted order. 
+k
+in_order_tree_walk(x): # x is the root at the tree
+	if x != NIL:
+		in_order_tree_walk(x.left)
+		print(x.key)
+		in_order_tree_walk(x.right)
+	
+Can be proved by induction. 
+
+5:30pm
+
+Runtime for some k 
+	T(n) = T(k) + T(n-k-1) + O(1)
+	Solution: T(n) = O(n)
+
+preorder_tree_walk(x)
+	if x != NIL
+	print x
+	pre_order_walk(x.left)
+	pre_order_walk(x.right)
+
+post_order 
+	...
+	x.left
+	x.right
+	print x
+
+tree_search(x,k): # x is the root of tree. k is some key. 
+# Want to find node where k is k. 
+
+	if x = NIL or x.key = k 
+		return x
+	if x.key < k
+		tree_search(x.right,k)
+	if x.key > k
+		tree_search(x.left,k)
+
+Proved by induction.
+
+Running time O(h) because that's the max depth.
+
+Another version::
+
+iterative_tree_search(x,k):
+	while x != NIL and x.key != k:
+		if x.key > k
+			x.left
+		else x.key < k
+			x.right
+	return x
+
+tree_min(x)
+	while x.left != NIL
+		x = x.left
+	return x
+
+Successor, predecessor
+The keys after and before k minimally larger and smaller
+
+Where would x's sucessor be? 
+If x has a right child, then it will be the min. there.
+Why isn't it its ancestor?
+
+What if x.right = NIL?
+	if x=y.left (y=x.parent)
+
+Keep going up until we hit a left. 
+
+Finding successors is equivalent to finding node printed in the in_order_walk after x. 
+
+tree_successor(x):
+	if x.right != NIL
+		return tree_min(x.right)
+	y = x.parent
+	while y != NIL and x=y.right
+		x = y
+		y = y.p
+	return y
+
+What's the running time?
+O(h) worst case
+
+Predecessor method is similar. 
+
+6:12pm
+
+Theorem: We can implement the dynamic set operations: search, min, max, successor, predecessor in BSTs in time O(h) (when h is the height of the BST). 
+
+Insertion and Deletion
+
+insert(x,k,t): # T is node to be inserted
+	y = NIL
+	x = T.root
+	while x != NIL:
+		y = x
+		if z.key < x.key
+			x = x.left
+		else x = x.right
+
+		if z.key < y.key
+			T,root = z
+			y.left = z
+		else y.right = zo
+
+transplant(T,u,v)
+	if u.p = NIL
+		T.root = v	
+	else 
+		if u = u.p left
+			u.p.left = v
+			else u.p.right = v
+
+tree_delete(t,z)
+	if z.left = NIL
+		transplant(t,z,z.right)
+	else if z.right = NIL
+			transplant(t,z,z.left)
+		else y = tree_min(z.right)
+		if y.p != z	
+			transplantt,y,y.right
+			y.right = z.right
+			y,right.p = y
+		transplant(t,z,y)
+		y.left = z.left
+		y.left.p=y
