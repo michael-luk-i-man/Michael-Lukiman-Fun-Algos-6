@@ -126,3 +126,14 @@ p	print-LSC9x,y,i-1,j-1)
 else if C[i,j] = C[i-1.j]
 	print-LCS(x,c,i-1,j)
 else print-LCS)x,c,i,j-1)
+
+
+6:42pm
+
+Four principles for designing dynamic algos__
+	1. Characterize the structure of the optimal solution.
+	2. Recursively define the value of the optimal solution.
+	3. Compute this value, typically a bottom-up function.
+	4. Construct an optimal solution from computed information.
+
+Matrix-Chain-Multiplication...look it up.
